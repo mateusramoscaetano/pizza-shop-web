@@ -22,7 +22,8 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noEmptyInterface": "off"
+				"noEmptyInterface": "off",
+				"noArrayIndexKey": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off"
