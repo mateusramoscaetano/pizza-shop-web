@@ -30,11 +30,11 @@ export function AccountMenu() {
             </span>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <Building className="size-4 mr-2" />
             <span>Perfil da loja</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-rose-500 dark:text-rose-400 ">
+          <DropdownMenuItem className="text-rose-500 dark:text-rose-400 cursor-pointer">
             <LogOut className="size-4 mr-2" />
             <span>sair</span>
           </DropdownMenuItem>
