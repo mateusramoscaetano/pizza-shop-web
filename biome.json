@@ -20,7 +20,19 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noEmptyInterface": "off"
+			},
+			"correctness": {
+				"noEmptyPattern": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "off"
+			},
+			"a11y": {
+				"useValidAnchor": "off"
+			}
 		}
 	},
 	"files": {

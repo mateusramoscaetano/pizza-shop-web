@@ -9,11 +9,21 @@
     }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src/*",
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "lib/*": [
+        "./src/lib/*"
+      ],
+      "hooks/*": [
+        "./src/hooks/*"
+      ],
+      // Adicione os outros aliases se necessário
     }
   }
 }
