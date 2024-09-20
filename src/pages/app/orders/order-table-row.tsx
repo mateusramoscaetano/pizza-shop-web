@@ -10,6 +10,9 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { cancelOrder } from "../../../api/cancel-order";
+import type { GetOrdersResponse } from "../../../api/get-orders";
 
 dayjs.locale("pt-br");
 dayjs.extend(relativeTime);
@@ -26,16 +29,44 @@ export interface IOrderTableRowProps {
 
 export function OrderTableRow({ order }: IOrderTableRowProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { mutateAsync: cancelOrderFn, isPending: isPendingCancelOrder } =
+    useMutation({
+      mutationFn: cancelOrder,
+      async onSuccess(_, { orderId }) {
+        const ordersListCache = queryClient.getQueriesData<GetOrdersResponse>({
+          queryKey: ["orders"],
+        });
 
-  function handleOrderDetails() {
-    setSearchParams((state) => {
-      state.set("orderId", order.orderId);
+        for (let i = 0; i < ordersListCache.length; i++) {
+          const [cacheKey, cacheData] = ordersListCache[i];
 
-      return state;
+          if (!cacheData) {
+            continue;
+          }
+
+          queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
+            ...cacheData,
+            orders: cacheData.orders.map((order) => {
+              if (order.orderId === orderId) {
+                return { ...order, status: "canceled" };
+              }
+
+              return order;
+            }),
+          });
+        }
+      },
     });
-  }
+
+  const isCancelable = ["pending", "processing"].includes(order.status);
+  const buttonLabel =
+    order.status === "canceled"
+      ? "Cancelado"
+      : isPendingCancelOrder
+      ? "Cancelando"
+      : "Cancelar";
 
   return (
     <>
@@ -74,9 +105,14 @@ export function OrderTableRow({ order }: IOrderTableRowProps) {
           </Button>
         </TableCell>
         <TableCell>
-          <Button variant={"ghost"} size={"sm"}>
+          <Button
+            onClick={() => cancelOrderFn({ orderId: order.orderId })}
+            disabled={!isCancelable || isPendingCancelOrder}
+            variant={"ghost"}
+            size={"sm"}
+          >
             <X className="size-3 mr-2" />
-            Cancelar
+            {buttonLabel}
           </Button>
         </TableCell>
       </TableRow>
