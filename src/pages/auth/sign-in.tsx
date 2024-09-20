@@ -5,7 +5,9 @@ import { Button } from "../../components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "../../api/sign-in";
 
 interface ISignInProps {}
 
@@ -16,15 +18,25 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>;
 
 export function SignIn({}: ISignInProps) {
+  const [searchParams] = useSearchParams();
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<SignInForm>();
+  } = useForm<SignInForm>({
+    defaultValues: {
+      email: searchParams.get("email") ?? "",
+    },
+  });
+
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  });
 
   async function handleSignIn(values: SignInForm) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await authenticate({ email: values.email });
 
       toast.success("Enviamos um link de autenticação no seu e-mail.", {
         action: {
