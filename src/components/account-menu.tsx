@@ -8,27 +8,45 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProfile } from "../api/get-profile";
 import { getManagedRestaurant } from "../api/get-managed-restaurant";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import { StoreProfileDialog } from "./store-profile-dialog";
+import { useState } from "react";
+import { signOut } from "../api/sign-out";
+import { useNavigate } from "react-router-dom";
 
 export function AccountMenu() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    staleTime: Number.POSITIVE_INFINITY,
   });
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
     useQuery({
       queryKey: ["managed-restaurant"],
       queryFn: getManagedRestaurant,
+      staleTime: Number.POSITIVE_INFINITY,
     });
+
+  const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
+    mutationFn: signOut,
+    onSuccess: () => {
+      navigate("/sign-in", { replace: true });
+    },
+  });
+
+  function handleClose() {
+    setOpen(!open);
+  }
 
   return (
     <>
-      <Dialog>
+      <Dialog onOpenChange={handleClose} open={open}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -66,14 +84,24 @@ export function AccountMenu() {
                 <span>Perfil da loja</span>
               </DropdownMenuItem>
             </DialogTrigger>
-            <DropdownMenuItem className="text-rose-500 dark:text-rose-400 cursor-pointer">
-              <LogOut className="size-4 mr-2" />
-              <span>sair</span>
+            <DropdownMenuItem
+              asChild
+              disabled={isSigningOut}
+              className="text-rose-500 dark:text-rose-400 cursor-pointer"
+            >
+              <button
+                className="w-full"
+                type="button"
+                onClick={() => signOutFn()}
+              >
+                <LogOut className="size-4 mr-2" />
+                <span>{isSigningOut ? "Saindo" : "Sair"}</span>
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <StoreProfileDialog />
+        <StoreProfileDialog onClose={handleClose} />
       </Dialog>
     </>
   );
