@@ -3,10 +3,25 @@ import { Button } from "../../../components/ui/button";
 import { TableCell, TableRow } from "../../../components/ui/table";
 import { Dialog, DialogTrigger } from "../../../components/ui/dialog";
 import { OrderDetails } from "./order-details";
+import { OrderStatus } from "../../../components/order-status";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-interface IOrderTableRowProps {}
+dayjs.locale("pt-br");
+dayjs.extend(relativeTime);
 
-export function OrderTableRow({}: IOrderTableRowProps) {
+interface IOrderTableRowProps {
+  order: {
+    orderId: string;
+    createdAt: string;
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+    customerName: string;
+    total: number;
+  };
+}
+
+export function OrderTableRow({ order }: IOrderTableRowProps) {
   return (
     <>
       <TableRow>
@@ -22,17 +37,21 @@ export function OrderTableRow({}: IOrderTableRowProps) {
           </Dialog>
         </TableCell>
         <TableCell className="font-mono text-xs font-medium">
-          dsa45d4as54das
+          {order.orderId}
         </TableCell>
-        <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
+        <TableCell className="text-muted-foreground">
+          {dayjs(order.createdAt).fromNow()}
+        </TableCell>
         <TableCell>
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-slate-400" />
-            <span className="font-medium text-muted-foreground">Pendente</span>
-          </div>
+          <OrderStatus status={order.status} />
         </TableCell>
-        <TableCell className="font-medium">Mateus Ramos Caetano</TableCell>
-        <TableCell className="font-medium">R$ 149.90</TableCell>
+        <TableCell className="font-medium">{order.customerName}</TableCell>
+        <TableCell className="font-medium">
+          {order.total.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </TableCell>
         <TableCell>
           <Button variant={"outline"} size={"sm"}>
             <ArrowRight className="size-3 mr-2" />
