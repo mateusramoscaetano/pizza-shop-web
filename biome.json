@@ -22,7 +22,7 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noEmptyInterface": "off",
+				"noEmptyInterface": "error",
 				"noArrayIndexKey": "off"
 			},
 			"correctness": {
