@@ -8,9 +8,8 @@ import {
 } from "../../../../components/ui/card";
 import { DollarSign } from "lucide-react";
 import { MetricCardSkeleton } from "./metric-card-skeleton";
-interface IMonthRevenueProps {}
 
-export function MonthRevenue({}: IMonthRevenueProps) {
+export function MonthRevenue() {
   const { data: monthRevenueFn } = useQuery({
     queryKey: ["metrics", "month-orders-revenue"],
     queryFn: getMonthRevenue,

@@ -8,9 +8,8 @@ import {
 } from "../../../../components/ui/card";
 import { Utensils } from "lucide-react";
 import { MetricCardSkeleton } from "./metric-card-skeleton";
-interface IMonthOrdersAmountProps {}
 
-export function MonthOrdersAmount({}: IMonthOrdersAmountProps) {
+export function MonthOrdersAmount() {
   const { data: monthOrdersAmount } = useQuery({
     queryKey: ["metrics", "month-orders-amount"],
     queryFn: getMonthOrderAmount,

@@ -22,9 +22,7 @@ import type { DateRange } from "react-day-picker";
 import { subDays } from "date-fns";
 import { Loader2 } from "lucide-react";
 
-interface IRevenueChartProps {}
-
-export function RevenueChart({}: IRevenueChartProps) {
+export function RevenueChart() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
     to: new Date(),

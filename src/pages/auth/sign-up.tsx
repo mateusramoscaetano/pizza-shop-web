@@ -9,8 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { registerRestaurant } from "../../api/register-restaurant";
 
-interface ISignUpProps {}
-
 const signUpForm = z.object({
   restaurantName: z.string().email(),
   managerName: z.string().email(),
@@ -20,7 +18,7 @@ const signUpForm = z.object({
 
 type SignUpForm = z.infer<typeof signUpForm>;
 
-export function SignUp({}: ISignUpProps) {
+export function SignUp() {
   const navigate = useNavigate();
   const {
     register,

@@ -15,9 +15,7 @@ import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { OrderTableSkeleton } from "./order-table-skeleton";
 
-interface IOrdersProps {}
-
-export function Orders({}: IOrdersProps) {
+export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const orderId = searchParams.get("orderId");

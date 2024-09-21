@@ -8,9 +8,8 @@ import {
 import { Utensils } from "lucide-react";
 import { getDayOrderAmount } from "../../../../api/get-day-orders-amount";
 import { MetricCardSkeleton } from "./metric-card-skeleton";
-interface IDayOrdersAmountProps {}
 
-export function DayOrdersAmount({}: IDayOrdersAmountProps) {
+export function DayOrdersAmount() {
   const { data: dayOrdersAmount } = useQuery({
     queryKey: ["metrics", "day-orders-amount"],
     queryFn: getDayOrderAmount,

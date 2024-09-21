@@ -9,15 +9,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "../../api/sign-in";
 
-interface ISignInProps {}
-
 const signInForm = z.object({
   email: z.string().email(),
 });
 
 type SignInForm = z.infer<typeof signInForm>;
 
-export function SignIn({}: ISignInProps) {
+export function SignIn() {
   const [searchParams] = useSearchParams();
 
   const {

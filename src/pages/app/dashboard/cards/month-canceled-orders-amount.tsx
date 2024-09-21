@@ -8,9 +8,8 @@ import {
 import { NotebookText } from "lucide-react";
 import { getMonthCanceledOrdersAmount } from "../../../../api/get-month-canceled-orders-amount";
 import { MetricCardSkeleton } from "./metric-card-skeleton";
-interface IMonthCanceledOrdersAmountProps {}
 
-export function MonthCanceledOrdersAmount({}: IMonthCanceledOrdersAmountProps) {
+export function MonthCanceledOrdersAmount() {
   const { data: monthCanceledOrdersAmount } = useQuery({
     queryKey: ["metrics", "month-canceled-orders-amount"],
     queryFn: getMonthCanceledOrdersAmount,

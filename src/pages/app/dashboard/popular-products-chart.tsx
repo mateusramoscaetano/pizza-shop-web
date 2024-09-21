@@ -10,16 +10,6 @@ import colors from "tailwindcss/colors";
 import { getPopularProducts } from "../../../api/get-popular-products";
 import { useQuery } from "@tanstack/react-query";
 
-interface IPopularProductsChartProps {}
-
-const data = [
-  { product: "Pepperoni", amount: 40 },
-  { product: "Mussarela", amount: 30 },
-  { product: "4 Queijos", amount: 50 },
-  { product: "Calabresa", amount: 16 },
-  { product: "Crocante", amount: 26 },
-];
-
 const COLORS = [
   colors.sky[500],
   colors.amber[500],
@@ -28,7 +18,7 @@ const COLORS = [
   colors.rose[500],
 ];
 
-export function PopularProductsChart({}: IPopularProductsChartProps) {
+export function PopularProductsChart() {
   const { data: popularProducts } = useQuery({
     queryKey: ["metrics", "popular-products"],
     queryFn: getPopularProducts,

@@ -6,9 +6,7 @@ import { MonthCanceledOrdersAmount } from "./cards/month-canceled-orders-amount"
 import { RevenueChart } from "./revenue-chart";
 import { PopularProductsChart } from "./popular-products-chart";
 
-interface IDashboardProps {}
-
-export function Dashboard({}: IDashboardProps) {
+export function Dashboard() {
   return (
     <>
       <Helmet title="Dashboard" />

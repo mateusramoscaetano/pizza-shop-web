@@ -13,8 +13,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "react-router-dom";
 
-interface IOrderTableFiltersProps {}
-
 const ordersFilteredSchema = z.object({
   orderId: z.string().optional(),
   customerName: z.string().optional(),
@@ -23,7 +21,7 @@ const ordersFilteredSchema = z.object({
 
 type OrderFilteredSchema = z.infer<typeof ordersFilteredSchema>;
 
-export function OrderTableFilters({}: IOrderTableFiltersProps) {
+export function OrderTableFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const orderId = searchParams.get("orderId");
