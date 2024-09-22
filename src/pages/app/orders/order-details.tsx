@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import { getOrderDetails } from "../../../api/get-orders-details";
-import { OrderStatus } from "../../../components/order-status";
+import { OrderStatus } from "./order-status";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import relativeTime from "dayjs/plugin/relativeTime";

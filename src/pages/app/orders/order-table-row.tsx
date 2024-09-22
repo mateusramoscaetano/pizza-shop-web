@@ -3,21 +3,17 @@ import { Button } from "../../../components/ui/button";
 import { TableCell, TableRow } from "../../../components/ui/table";
 import { Dialog, DialogTrigger } from "../../../components/ui/dialog";
 import { OrderDetails } from "./order-details";
-import {
-  OrderStatus,
-  type TOrderStatus,
-} from "../../../components/order-status";
+import { OrderStatus, type TOrderStatus } from "./order-status";
 import { useState } from "react";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cancelOrder } from "../../../api/cancel-order";
 import type { GetOrdersResponse } from "../../../api/get-orders";
-
 import { approveOrder } from "../../../api/approve-order";
 import { deliverOrder } from "../../../api/deliver-order";
 import { dispatchOrder } from "../../../api/dispatch-order";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.locale("pt-br");
 dayjs.extend(relativeTime);

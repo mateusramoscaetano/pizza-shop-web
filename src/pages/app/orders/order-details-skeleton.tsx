@@ -7,8 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
-import { OrderStatus } from "../../../components/order-status";
-import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import { Skeleton } from "../../../components/ui/skeleton";
 
