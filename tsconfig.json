@@ -9,21 +9,18 @@
     }
   ],
   "compilerOptions": {
-    "baseUrl": "./src/*",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ],
-      "components/*": [
-        "./src/components/*"
-      ],
       "lib/*": [
         "./src/lib/*"
-      ],
-      "hooks/*": [
-        "./src/hooks/*"
-      ],
-      // Adicione os outros aliases se necessário
-    }
+      ]
+      // Add other aliases as needed
+    },
+    "types": [
+      "vitest/globals"
+    ]
   }
 }
